@@ -8,10 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
@@ -24,7 +22,7 @@ public class Address {
 
 	@Column(nullable = false)
 	@NotEmpty
-	@Pattern(regexp = "[0-9]{8}", message = "cep must have 8 digits only")
+//	@Pattern(regexp = "[0-9]{8}", message = "cep must have 8 digits only")// FIXME
 	private String cep;
 
 	private String logradouro;
