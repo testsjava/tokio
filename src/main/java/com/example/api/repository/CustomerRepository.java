@@ -1,13 +1,17 @@
 package com.example.api.repository;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
 import com.example.api.domain.Customer;
+import com.example.api.repository.query.CustomerRepositoryQuery;
 
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
+@Repository
+public interface CustomerRepository extends CrudRepository<Customer, Long>, CustomerRepositoryQuery, PagingAndSortingRepository<Customer, Long> {
 
-	List<Customer> findAllByOrderByNameAsc();
+	Page<Customer> findAllByOrderByNameAsc(Pageable pageable);
 
 }

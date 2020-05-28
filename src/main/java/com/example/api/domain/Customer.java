@@ -1,18 +1,25 @@
 package com.example.api.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false)
@@ -23,6 +30,10 @@ public class Customer {
 	@NotEmpty
 	@Email
 	private String email;
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "customer")
+	private Set<Address> endereco;
 
 	public Long getId() {
 		return id;
@@ -46,6 +57,19 @@ public class Customer {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<Address> getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Set<Address> endereco) {
+		this.endereco = endereco;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", email=" + email + "]";
 	}
 
 }
